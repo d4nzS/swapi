@@ -3,25 +3,25 @@
 const urlSWAPI = 'https://swapi.dev/api';
 const category = '/people';
 
-const headerSearch = document.querySelector('.header__search');
-const mainList = document.querySelector('.main__list');
-const footerList = document.querySelector('.footer__list');
+const search = document.querySelector('.header__search');
+const listCards = document.querySelector('.main__list');
+const listPagination = document.querySelector('.footer__list');
 const popup = document.querySelector('.popup');
-const modal = popup.querySelector('.modal');
+const modalInPopup = popup.querySelector('.modal');
 
 createStartPage(urlSWAPI + category);
 
-headerSearch.oninput = function () {
-    createStartPage(urlSWAPI + category + `/?search=${headerSearch.value}`);
+search.oninput = function () {
+    createStartPage(urlSWAPI + category + `/?search=${search.value}`);
 }
 
-mainList.onclick = function (event) {
+listCards.onclick = function (event) {
     const mainItem = event.target;
 
     if (mainItem.classList.contains('main__item')) {
         popup.classList.add('popup_active');
 
-        createModal(urlSWAPI + category + `/?search=${mainItem.textContent}`, modal)
+        createModal(urlSWAPI + category + `/?search=${mainItem.textContent}`, modalInPopup)
     }
 }
 
@@ -29,7 +29,7 @@ popup.onclick = function () {
     popup.classList.remove('popup_active')
 }
 
-footerList.onclick = function (event) {
+listPagination.onclick = function (event) {
     const footerItem = event.target;
 
     if (footerItem.classList.contains('footer__item')) {
@@ -37,7 +37,7 @@ footerList.onclick = function (event) {
             .forEach(item => item.classList.remove('footer__item_active'));
         footerItem.classList.add('footer__item_active');
 
-        createCards(urlSWAPI + category + `/?search=${headerSearch.value}&page=${footerItem.textContent}`, mainList);
+        createCards(urlSWAPI + category + `/?search=${search.value}&page=${footerItem.textContent}`, listCards);
     }
 }
 
@@ -49,13 +49,13 @@ async function getData(url) {
 function createStartPage(url) {
     getData(url)
         .then(function (result) {
-            mainList.innerHTML = '';
-            footerList.innerHTML = '';
+            listCards.innerHTML = '';
+            listPagination.innerHTML = '';
 
             const pagesCount = Math.ceil(result.count / 10);
 
-            drawPagination(pagesCount, footerList);
-            drawCards(result.results, mainList)
+            drawPagination(pagesCount, listPagination);
+            drawCards(result.results, listCards)
         });
 }
 
