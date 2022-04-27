@@ -6,8 +6,8 @@ const category = '/people';
 const search = document.querySelector('.header__search');
 const listCards = document.querySelector('.main__list');
 const listPagination = document.querySelector('.footer__list');
-const popup = document.querySelector('.popup');
-const modalInPopup = popup.querySelector('.modal');
+const popupInfo = document.querySelector('.popup');
+const modalInPopupInfo = popupInfo.querySelector('.modal');
 
 createStartPage(urlSWAPI + category);
 
@@ -19,14 +19,14 @@ listCards.onclick = function (event) {
     const mainItem = event.target;
 
     if (mainItem.classList.contains('main__item')) {
-        popup.classList.add('popup_active');
+        popupInfo.classList.add('popup_active');
 
-        createModal(urlSWAPI + category + `/?search=${mainItem.textContent}`, modalInPopup)
+        createModal(urlSWAPI + category + `/?search=${mainItem.textContent}`, modalInPopupInfo)
     }
 }
 
-popup.onclick = function () {
-    popup.classList.remove('popup_active')
+popupInfo.onclick = function () {
+    popupInfo.classList.remove('popup_active')
 }
 
 listPagination.onclick = function (event) {
