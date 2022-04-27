@@ -47,11 +47,11 @@ async function getData(url) {
 }
 
 function createStartPage(url) {
-    mainList.innerHTML = '';
-    footerList.innerHTML = '';
-
     getData(url)
         .then(function (result) {
+            mainList.innerHTML = '';
+            footerList.innerHTML = '';
+
             const pagesCount = Math.ceil(result.count / 10);
 
             drawPagination(pagesCount, footerList);
@@ -60,10 +60,9 @@ function createStartPage(url) {
 }
 
 function createCards(url, list) {
-    list.innerHTML = '';
-
     getData(url)
         .then(function (result) {
+            list.innerHTML = ''
             drawCards(result.results, list)
         });
 }
@@ -82,10 +81,9 @@ function drawCards(peopleArr, list) {
 }
 
 function createModal(url, modal) {
-    modal.innerHTML = '';
-
     getData(url)
         .then(function (result) {
+            modal.innerHTML = '';
             drawModal(result.results, modal);
         });
 }
