@@ -4,8 +4,56 @@
     <meta charset="UTF-8">
     <title>SWAPI</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .footer__item_active {
+            text-decoration: underline;
+        }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+            background-color: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: 200ms ease-in-out;
+            pointer-events: none;
+        }
+
+        .popup_active {
+            cursor: pointer;
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal {
+            background-color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
 </head>
 <body>
+
+<header class="header">
+    <input type="search" name="search"  class="header__search">
+</header>
+
+<main class="main">
+    <ul class="main__list"></ul>
+</main>
+
+<footer class="footer">
+    <ul class="footer__list"></ul>
+</footer>
+
+<div class="popup">
+    <div class="modal"></div>
+</div>
 
 <script src="script.js"></script>
 
