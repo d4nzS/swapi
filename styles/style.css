@@ -1,0 +1,122 @@
+* {
+    padding: 0;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+body {
+    padding: 25px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-image: url("../images/bg.jpg");
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    font-family: fantasy;
+}
+
+.header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+}
+.header__logo {
+    height: 100px;
+    width: 231.4124293785px;
+}
+.header__search {
+    height: 20px;
+    outline: none;
+    font-family: fantasy;
+}
+
+.main {
+    padding: 50px 0;
+}
+.main__list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    gap: 20px;
+}
+.main__item {
+    background-image: url("../images/card.png");
+    height: 200px;
+    width: 200px;
+    background-size: cover;
+    list-style-type: none;
+    opacity: 0.5;
+    cursor: pointer;
+}
+.main__item:hover {
+    opacity: 1;
+}
+
+.footer__list {
+    text-align: center;
+    color: #d9a80d;
+}
+.footer__item {
+    display: inline-block;
+    cursor: pointer;
+    padding: 5px;
+}
+.footer__item_active {
+    text-decoration: underline;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    -webkit-transition: 200ms ease-in-out;
+    transition: 200ms ease-in-out;
+    pointer-events: none;
+}
+
+.popup_active {
+    cursor: pointer;
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    color: #ffffff;
+    background-image: url("../images/bg-modal.jpeg");
+    background-size: cover;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    width: 50vh;
+    height: 50vh;
+}

@@ -54,8 +54,8 @@ function createStartPage(url) {
 
             const pagesCount = Math.ceil(result.count / 10);
 
-            drawPagination(pagesCount, listPagination);
-            drawCards(result.results, listCards)
+            if (result.count > 10) drawPagination(pagesCount, listPagination);
+            drawCards(result.results, listCards);
         });
 }
 
@@ -89,7 +89,12 @@ function createModal(url, modal) {
 }
 
 function drawModal(person, modal) {
-    modal.insertAdjacentHTML('beforeend',`<p>Name: ${person[0].name}</p>`);
-    modal.insertAdjacentHTML('beforeend',`<p>Birth: ${person[0].birth_year}</p>`);
-    modal.insertAdjacentHTML('beforeend',`<p>Gender: ${person[0].gender}</p>`);
+    modal.insertAdjacentHTML('beforeend', `<p>Name: ${person[0].name}</p>`);
+    modal.insertAdjacentHTML('beforeend', `<p>Birth: ${person[0].birth_year}</p>`);
+    modal.insertAdjacentHTML('beforeend', `<p>Gender: ${person[0].gender}</p>`);
+    modal.insertAdjacentHTML('beforeend', `<p>Hair color: ${person[0].hair_color}</p>`);
+    modal.insertAdjacentHTML('beforeend', `<p>Skin color: ${person[0].skin_color}</p>`);
+    modal.insertAdjacentHTML('beforeend', `<p>Eye color: ${person[0].eye_color}</p>`);
+    modal.insertAdjacentHTML('beforeend', `<p>Weight: ${person[0].mass} kg</p>`);
+    modal.insertAdjacentHTML('beforeend', `<p>Height: ${person[0].height} cm</p>`);
 }

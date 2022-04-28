@@ -2,45 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SWAPI</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .footer__item_active {
-            text-decoration: underline;
-        }
-
-        .popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1;
-            background-color: rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            transition: 200ms ease-in-out;
-            pointer-events: none;
-        }
-
-        .popup_active {
-            cursor: pointer;
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .modal {
-            background-color: white;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-    </style>
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
 
 <header class="header">
-    <input type="search" name="search"  class="header__search">
+    <img src="images/logo.png" alt="Logo" class="header__logo">
+    <input type="search" name="search" class="header__search">
 </header>
 
 <main class="main">
