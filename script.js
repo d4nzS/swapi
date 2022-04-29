@@ -2,6 +2,16 @@
 
 const urlSWAPI = 'https://swapi.dev/api';
 const category = '/people';
+const peopleParams = {
+    name: "Name",
+    birth_year: "Birth",
+    gender: "Gender",
+    hair_color: "Hair color",
+    skin_color: "Skin color",
+    eye_color: "Eye color",
+    mass: "Weight",
+    height: "Height"
+}
 
 const search = document.querySelector('.header__search');
 const listCards = document.querySelector('.main__list');
@@ -9,10 +19,10 @@ const listPagination = document.querySelector('.footer__list');
 const popupInfo = document.querySelector('.popup');
 const modalInPopupInfo = popupInfo.querySelector('.modal');
 
-createStartPage(urlSWAPI + category);
+createPage(category);
 
 search.oninput = function () {
-    createStartPage(urlSWAPI + category + `/?search=${search.value}`);
+    createPage(category + `/?search=${search.value}`);
 }
 
 listCards.onclick = function (event) {
@@ -21,12 +31,8 @@ listCards.onclick = function (event) {
     if (mainItem.classList.contains('main__item')) {
         popupInfo.classList.add('popup_active');
 
-        createModal(urlSWAPI + category + `/?search=${mainItem.textContent}`, modalInPopupInfo)
+        createModal(mainItem.id, modalInPopupInfo)
     }
-}
-
-popupInfo.onclick = function () {
-    popupInfo.classList.remove('popup_active')
 }
 
 listPagination.onclick = function (event) {
@@ -37,8 +43,12 @@ listPagination.onclick = function (event) {
             .forEach(item => item.classList.remove('footer__item_active'));
         footerItem.classList.add('footer__item_active');
 
-        createCards(urlSWAPI + category + `/?search=${search.value}&page=${footerItem.textContent}`, listCards);
+        createCards(category + `/?search=${search.value}&page=${footerItem.textContent}`, listCards);
     }
+}
+
+popupInfo.onclick = function () {
+    popupInfo.classList.remove('popup_active')
 }
 
 async function getData(url) {
@@ -46,7 +56,9 @@ async function getData(url) {
     return await response.json();
 }
 
-function createStartPage(url) {
+function createPage(subUrl) {
+    const url = urlSWAPI + subUrl;
+
     getData(url)
         .then(function (result) {
             listCards.innerHTML = '';
@@ -59,7 +71,9 @@ function createStartPage(url) {
         });
 }
 
-function createCards(url, list) {
+function createCards(subUrl, list) {
+    const url = urlSWAPI + subUrl;
+
     getData(url)
         .then(function (result) {
             list.innerHTML = ''
@@ -68,33 +82,25 @@ function createCards(url, list) {
 }
 
 function drawPagination(pagesCount, list) {
-    list.insertAdjacentHTML('beforeend', `<li class="footer__item footer__item_active">1</li>`)
-    for (let i = 2; i <= pagesCount; i++) {
-        list.insertAdjacentHTML('beforeend', `<li class="footer__item">${i}</li>`);
+    for (let i = 1; i <= pagesCount; i++) {
+        list.insertAdjacentHTML('beforeend', `<li class="footer__item ${i === 1 ? 'footer__item_active' : ''}">${i}</li>`);
     }
 }
 
 function drawCards(peopleArr, list) {
-    for (let person of peopleArr) {
-        list.insertAdjacentHTML('beforeend', `<li class="main__item">${person.name}</li>`)
-    }
+    list.innerHTML = peopleArr.reduce((str, person, index, arr) =>
+        str += `<li id="${arr[index].url}" class="main__item">${person.name}</li>`, '');
 }
 
 function createModal(url, modal) {
     getData(url)
         .then(function (result) {
             modal.innerHTML = '';
-            drawModal(result.results, modal);
+            drawModal(result, modal);
         });
 }
 
 function drawModal(person, modal) {
-    modal.insertAdjacentHTML('beforeend', `<p>Name: ${person[0].name}</p>`);
-    modal.insertAdjacentHTML('beforeend', `<p>Birth: ${person[0].birth_year}</p>`);
-    modal.insertAdjacentHTML('beforeend', `<p>Gender: ${person[0].gender}</p>`);
-    modal.insertAdjacentHTML('beforeend', `<p>Hair color: ${person[0].hair_color}</p>`);
-    modal.insertAdjacentHTML('beforeend', `<p>Skin color: ${person[0].skin_color}</p>`);
-    modal.insertAdjacentHTML('beforeend', `<p>Eye color: ${person[0].eye_color}</p>`);
-    modal.insertAdjacentHTML('beforeend', `<p>Weight: ${person[0].mass} kg</p>`);
-    modal.insertAdjacentHTML('beforeend', `<p>Height: ${person[0].height} cm</p>`);
+    modal.innerHTML = Object.keys(peopleParams).reduce((str, item) =>
+        str += `<p>${peopleParams[item]}: ${person[item]}</p>`, '');
 }
