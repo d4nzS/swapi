@@ -11,7 +11,7 @@ const peopleParams = {
     eye_color: "Eye color",
     mass: "Weight",
     height: "Height"
-}
+};
 
 const search = document.querySelector('.header__search');
 const listCards = document.querySelector('.main__list');
@@ -21,9 +21,16 @@ const modalInPopupInfo = popupInfo.querySelector('.modal');
 
 createPage(category);
 
-search.oninput = function () {
-    createPage(category + `/?search=${search.value}`);
-}
+let delay = 500;
+let timer;
+
+search.onkeyup = function () {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+        const subUrl = category + `/?search=${search.value}`;
+        createPage(subUrl);
+    }, delay);
+};
 
 listCards.onclick = function (event) {
     const mainItem = event.target;
@@ -33,7 +40,7 @@ listCards.onclick = function (event) {
 
         createModal(mainItem.id, modalInPopupInfo)
     }
-}
+};
 
 listPagination.onclick = function (event) {
     const footerItem = event.target;
@@ -45,11 +52,11 @@ listPagination.onclick = function (event) {
 
         createCards(category + `/?search=${search.value}&page=${footerItem.textContent}`, listCards);
     }
-}
+};
 
 popupInfo.onclick = function () {
     popupInfo.classList.remove('popup_active')
-}
+};
 
 async function getData(url) {
     const response = await fetch(url);
